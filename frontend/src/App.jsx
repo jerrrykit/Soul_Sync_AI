@@ -9,46 +9,46 @@ function App() {
 
   const sendMessage = async () => {
 
-    if (!message) return;
+  if (!message) return;
 
-    const userMessage = {
-      sender: "You",
-      text: message
+  const userMessage = {
+    sender: "You",
+    text: message
+  };
+
+  setChat((prev) => [...prev, userMessage]);
+
+  setMessage("");
+
+  setLoading(true);
+
+  try {
+
+    const response = await axios.post(
+      "https://soul-sync-ai.onrender.com/chat",
+      {
+        message: message
+      }
+    );
+
+    const aiMessage = {
+      sender: "SoulSync",
+      text: response.data.reply
     };
 
-    setChat((prev) => [...prev, userMessage]);
+    setChat((prev) => [...prev, aiMessage]);
 
-    setMessage("");
+  } catch (error) {
 
-    setLoading(true);
+    console.log("ERROR:", error);
+    console.log("Response:", error.response);
+    console.log("Data:", error.response?.data);
+    alert(JSON.stringify(error.response?.data || error.message));
 
-    try {
+  }
 
-      const response = await axios.post(
-        "https://soul-sync-ai.onrender.com/chat",
-        {
-          message: message
-        }
-      );
-
-      const aiMessage = {
-        sender: "SoulSync",
-        text: response.data.reply
-      };
-
-      setChat((prev) => [...prev, aiMessage]);
-
-    } 
-      catch (error) {
-  console.log("ERROR:", error);
-  console.log("Response:", error.response);
-  console.log("Data:", error.response?.data);
-  alert(error.response?.data || error.message);
-}
-    }
-
-    setLoading(false);
-  };
+  setLoading(false);
+};
 
   return (
 
