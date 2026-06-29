@@ -38,8 +38,13 @@ function App() {
 
       setChat((prev) => [...prev, aiMessage]);
 
-    } catch (error) {
-      console.log(error);
+    } 
+      catch (error) {
+  console.log("ERROR:", error);
+  console.log("Response:", error.response);
+  console.log("Data:", error.response?.data);
+  alert(error.response?.data || error.message);
+}
     }
 
     setLoading(false);
