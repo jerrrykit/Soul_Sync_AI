@@ -1,15 +1,26 @@
-from transformers import pipeline
+import os
+import requests
 
-classifier = pipeline(
-    "text-classification",
-    model="j-hartmann/emotion-english-distilroberta-base",
-    top_k=None
-)
+HF_TOKEN = os.getenv("HF_TOKEN")
+
+API_URL = "https://api-inference.huggingface.co/models/j-hartmann/emotion-english-distilroberta-base"
+
+headers = {
+    "Authorization": f"Bearer {HF_TOKEN}"
+}
 
 def detect_emotion(text):
+    response = requests.post(
+        API_URL,
+        headers=headers,
+        json={"inputs": text}
+    )
 
-    results = classifier(text)[0]
+    result = response.json()
 
-    highest = max(results, key=lambda x: x['score'])
+    if isinstance(result, list):
+        emotions = result[0]
+        highest = max(emotions, key=lambda x: x["score"])
+        return highest["label"]
 
-    return highest['label']
+    return "neutral"
