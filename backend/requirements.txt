@@ -2,9 +2,5 @@ fastapi
 uvicorn
 python-dotenv
 groq
-<<<<<<< HEAD
-gunicorn
-=======
 requests
 gunicorn
->>>>>>> 8795983 (Use Hugging Face API for emotion detection)
