@@ -37,9 +37,3 @@ build/
 .vscode/
 *.log
 
-backend/venv/
-frontend/node_modules/
-archive.zip
-*.zip
-__pycache__/
-.env

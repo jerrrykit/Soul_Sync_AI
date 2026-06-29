@@ -4,3 +4,32 @@ archive.zip
 *.zip
 __pycache__/
 .env
+
+# Python
+backend/venv/
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+
+# Node
+frontend/node_modules/
+
+# Environment
+.env
+
+# Archives
+archive.zip
+*.zip
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
