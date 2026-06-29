@@ -10,17 +10,6 @@ headers = {
 }
 
 def detect_emotion(text):
-    response = requests.post(
-        API_URL,
-        headers=headers,
-        json={"inputs": text}
-    )
-
-    result = response.json()
-
-    if isinstance(result, list):
-        emotions = result[0]
-        highest = max(emotions, key=lambda x: x["score"])
-        return highest["label"]
+    
 
     return "neutral"
