@@ -11,7 +11,10 @@ load_dotenv()
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://soul-sync-ai-frontend.onrender.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -26,6 +29,18 @@ class ChatRequest(BaseModel):
 @app.get("/")
 def home():
     return {"message": "Emotion AI Backend Running"}
+@app.get("/test-groq")
+async def test_groq():
+    try:
+        completion = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "user", "content": "Hello"}
+            ]
+        )
+        return {"status": "success"}
+    except Exception as e:
+        return {"error": str(e)}
 
 @app.post("/chat")
 async def chat(req: ChatRequest):
@@ -58,3 +73,4 @@ Avoid robotic replies.
     return {
         "reply": ai_reply
     }
+
