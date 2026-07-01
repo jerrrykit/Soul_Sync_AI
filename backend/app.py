@@ -16,7 +16,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 client = Groq(
     api_key=os.getenv("GROQ_API_KEY","").strip()
 )
